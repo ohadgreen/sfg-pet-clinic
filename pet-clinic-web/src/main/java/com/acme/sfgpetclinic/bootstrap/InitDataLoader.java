@@ -1,22 +1,20 @@
 package com.acme.sfgpetclinic.bootstrap;
 
-import model.Owner;
-import model.Vet;
+import com.acme.sfgpetclinic.model.Owner;
+import com.acme.sfgpetclinic.model.Vet;
+import com.acme.sfgpetclinic.services.OwnerService;
+import com.acme.sfgpetclinic.services.VetService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import services.Map.OwnerServiceMap;
-import services.Map.VetServiceMap;
-import services.OwnerService;
-import services.VetService;
 
 @Component
 public class InitDataLoader implements CommandLineRunner {// this will be triggered once the app is started
     private final OwnerService ownerService;
     private final VetService vetService;
 
-    public InitDataLoader() {
-        this.ownerService = new OwnerServiceMap();
-        this.vetService = new VetServiceMap();
+    public InitDataLoader(OwnerService ownerService, VetService vetService) {
+        this.ownerService = ownerService;
+        this.vetService = vetService;
     }
 
     @Override
