@@ -23,7 +23,7 @@ public class OwnerController {
         System.out.println("owners list: \n =======");
         allOwners.forEach(o -> System.out.println(o.getFirstName()));
 
-        model.addAttribute("owners", ownerService.findAll());
+        model.addAttribute("owners", allOwners);
         return "owners/index";
     }
 }

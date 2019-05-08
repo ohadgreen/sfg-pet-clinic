@@ -21,18 +21,16 @@ public class InitDataLoader implements CommandLineRunner {// this will be trigge
     public void run(String... args) throws Exception {
 
         Owner owner1 = new Owner("Alice", "Cooper");
-        owner1.setId(1L);
         Owner owner2 = new Owner("Bon", "Jovi");
-        owner2.setId(2L);
 
+        System.out.println("saving alice...");
         ownerService.save(owner1);
+        System.out.println("saving bon...");
         ownerService.save(owner2);
         System.out.println("Loaded Owners to map");
 
         Vet vet1 = new Vet("Eran", "Binyamini");
-        vet1.setId(11L);
         Vet vet2 = new Vet("Doctor", "Doolittle");
-        vet2.setId(12L);
 
         vetService.save(vet1);
         vetService.save(vet2);
