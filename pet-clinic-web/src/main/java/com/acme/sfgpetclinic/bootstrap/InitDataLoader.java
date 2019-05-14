@@ -23,9 +23,7 @@ public class InitDataLoader implements CommandLineRunner {// this will be trigge
         Owner owner1 = new Owner("Alice", "Cooper");
         Owner owner2 = new Owner("Bon", "Jovi");
 
-        System.out.println("saving alice...");
         ownerService.save(owner1);
-        System.out.println("saving bon...");
         ownerService.save(owner2);
         System.out.println("Loaded Owners to map");
 
