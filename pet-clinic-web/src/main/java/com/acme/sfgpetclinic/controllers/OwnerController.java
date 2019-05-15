@@ -1,20 +1,25 @@
 package com.acme.sfgpetclinic.controllers;
 
+import com.acme.sfgpetclinic.converters.OwnerDbToWeb;
 import com.acme.sfgpetclinic.model.Owner;
+import com.acme.sfgpetclinic.model.OwnerWeb;
 import com.acme.sfgpetclinic.services.OwnerService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @RestController
 public class OwnerController {
 
     private final OwnerService ownerService;
+    private final OwnerDbToWeb ownerDbToWebConverter;
 
-    public OwnerController(OwnerService ownerService) {
+    public OwnerController(OwnerService ownerService, OwnerDbToWeb ownerDbToWebConverter) {
         this.ownerService = ownerService;
+        this.ownerDbToWebConverter = ownerDbToWebConverter;
     }
 
     @RequestMapping({"/owners", "/owners/index", "owners/index.html"})
@@ -28,11 +33,15 @@ public class OwnerController {
     }
 
     @RequestMapping({"test/owners"})
-    public Set<Owner> ownersListTest() {
+    public Set<OwnerWeb> ownersListTest() {
         Set<Owner> allOwners = ownerService.findAll();
         System.out.println("owners list: \n =======");
-        allOwners.forEach(o -> System.out.println(o.getFirstName()));
+        Set<OwnerWeb> allOwnersWebFormat = new HashSet<>();
+        allOwners.forEach(o -> {
+            System.out.println(o.getFirstName());
+            allOwnersWebFormat.add(ownerDbToWebConverter.convert(o));
+        } );
 
-        return allOwners;
+        return allOwnersWebFormat;
     }
 }
